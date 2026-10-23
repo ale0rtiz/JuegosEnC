@@ -1,1 +1,80 @@
+/******************************************************************************
 
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢤⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢰⠏⠳⣄⣀⣀⡸⠁⠀⠙⢆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⡏⠀⠀⠘⠛⠋⠃⠀⠀⠀⠸⣷⣒⣉⠀⠀⠀   CONECTA 4
+⠀⠔⢒⣾⡂⠀⢴⡄⠰⣾⡖⠀⠛⠁⠀⠉⢳⡄⠀⠀⠀por Ale :3
+⠀⠋⢹⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⢱⡄⠀⠀
+⠀⢀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠏⠟⠀⠀⠀⢱⡀⠀
+⠀⡸⠁⠀⠀⠀⠐⣟⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣇⠀
+⢠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆
+⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠇
+⠸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀
+⠀⠹⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠃⠀
+⢠⠞⢉⣕⣦⣤⣐⣫⣇⣀⣀⣀⣸⣏⣣⠤⠴⠊⠁⠀⠀
+⢸⡀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+int SIZE_ANCHO = 6;
+int SIZE_ALTO = 7;
+
+int TOTAL_FICHAS = 4;
+
+void inicializarTablero(char tablero[SIZE_ANCHO][SIZE_ALTO]){
+    for(int i=0; i<SIZE_ANCHO; i++){
+        for(int j=0; j<SIZE_ALTO; j++){
+            tablero[i][j]= '~';
+        }
+    }
+}
+
+void mostrarTablero(char tablero[SIZE_ANCHO][SIZE_ALTO]){
+    printf(" ");
+    for(int j=0; j<SIZE_ALTO; j++){
+        printf("%d ", j + 1);
+    }
+    printf("\n");
+    for(int i=0; i<SIZE_ANCHO; i++){
+        printf("%d", i +1);
+        for(int j=0; j<SIZE_ALTO; j++){
+            printf("%c ", tablero[i][j]);
+        }
+        printf("\n");
+    }
+    }
+
+int main()
+{
+    char tableroP1 [SIZE_ANCHO][SIZE_ALTO];
+    char tableroP2 [SIZE_ANCHO][SIZE_ALTO];
+    char ficha_1 [SIZE_ANCHO][SIZE_ALTO];
+    char ficha_2 [SIZE_ANCHO][SIZE_ALTO];
+    
+    inicializarTablero(tableroP1);
+    inicializarTablero(tableroP2);
+    
+    /*mostrarTablero(tableroP1);
+    mostrarTablero(tableroP2);*/
+    
+    int fichas_player1;
+    int fichas_player2;
+    
+    //int turno_jugador;
+    
+    while(){
+        int a, b;
+        
+        //  === TURNO DEL JUGADOR 1 ===
+        
+        printf("=== PLAYER ONE ===\n");
+        mostrarTablero(ficha_1);
+        
+        
+    }
+    return 0;
+}
