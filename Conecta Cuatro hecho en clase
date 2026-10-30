@@ -1,0 +1,101 @@
+/******************************************************************************
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠋⠀⠹⣷⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠸⣿⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡇⠀⠀⠀⠀⣿⣠⣤⣤⣄⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣸⣧⠀⠀⠀⠀⣿⡏⠀⠈⣿⡆
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡾⠉⠉⠟⠀⠀⠀⠀⠉⠁⠀⠀⢹⡇
+⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⣦⠀⠀⠀⢸⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠇
+⣠⣄⠀⠀⠀⠀⠀⢀⣾⠁⢹⣧⠀⠀⢈⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠏⠀
+⣿⠛⢷⣤⣤⡴⠶⠾⠃⠀⠀⣿⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⠏⠀⠀
+⢻⡆⣀⡀⠀⠀⠀⠀⣀⣀⠀⣿⡟⠁⠀⠀⠀⠀⠀⢀⣠⣤⠶⠞⠋⠁⠀⠀⠀
+⠸⣿⡿⠟⣿⣄⡾⠟⡛⢓⣿⠋⠀⠀⠀⣀⣤⡶⠞⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠹⣷⣼⣁⣽⣧⣽⠿⠋⢁⣠⣴⠶⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⣠⡿⠛⠉⠁⠀⠀⠰⣯⣁⣠⠴⠛⢻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢀⣾⠋⢀⣄⠀⠀⠀⣀⠀⢿⡷⠦⠴⠶⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⡏⢠⣿⢹⣧⠀⣾⠻⣧⠘⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠘⢷⠟⠁⢸⡏⠀⣿⠀⠻⣦⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⡇⢸⡟⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+// Conecta 4 en Conecta
+int tableroColumnas = 7;
+int tableroFilas = 8;
+int jugador= 1;
+
+char tablero[8][7];
+
+void inicializarTablero(){
+    for(int i=0; i<tableroFilas; i++){
+        for(int j=0; j<tableroColumnas; j++){
+            tablero[i][j] = ' ';
+        }
+    }
+}
+
+void mostrarTablero(){
+    for(int i=0; i<tableroFilas; i++){
+        for(int j=0; j<tableroColumnas; j++){
+            printf("| %c", tablero[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void ponerFicha(){
+    int columna;
+    
+    if(jugador == 1){
+        printf("Jugador 1, Ingrese la columna (0-6) para colocar su ficha: \n");
+        scanf("%d", &columna);
+        //  VALIDAR LA COLUMNA INGRESADA
+        if(columna < 0 || columna >= tableroColumnas){
+        printf("Columna invalida. Intente otra vez \n");
+        return;
+        }
+        //  COLOCAR LA FICAH EN LA PRIEMARA FILA DISPONIBLE DE LA COLUMNA
+        for(int i=tableroFilas - 1; i>=0; i--){
+        if(tablero[i][columna] == ' '){
+            tablero[i][columna] = 'X';
+            break;
+            }   
+        }
+        jugador=2;
+    }else{
+        printf("Jugador 2, Ingrese la columna (0-6) para colocar su ficha: \n");
+    scanf("%d", &columna);
+    //  VALIDAR LA COLUMNA INGRESADA
+    if(columna < 0 || columna >= tableroColumnas){
+        printf("Columna invalida. Intente otra vez \n");
+        return;
+    }
+    //  COLOCAR LA FICAH EN LA PRIEMARA FILA DISPONIBLE DE LA COLUMNA
+    for(int i=tableroFilas - 1; i>=0; i--){
+        if(tablero[i][columna] == ' '){
+            tablero[i][columna] = 'O';
+            break;
+        }
+    }
+    jugador=1;
+    }
+    
+}
+int main()
+{
+    inicializarTablero();
+    mostrarTablero();
+    for(int i=0; i<5; i++){
+        ponerFicha();
+        mostrarTablero();
+    }
+    ponerFicha();
+    mostrarTablero();
+
+    return 0;
+}
