@@ -20,9 +20,11 @@
 ⠀⠀⠀⠀⢸⡇⢸⡟⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 
+
 *******************************************************************************/
 
 #include <stdio.h>
+#include <unistd.h>
 
 // Conecta 4 en Conecta
 int tableroColumnas = 7;
@@ -40,6 +42,8 @@ void inicializarTablero(){
 }
 
 void mostrarTablero(){
+    printf("\e[1;1H\e[2J");
+    
     for(int i=0; i<tableroFilas; i++){
         for(int j=0; j<tableroColumnas; j++){
             printf("| %c", tablero[i][j]);
@@ -50,52 +54,107 @@ void mostrarTablero(){
 
 void ponerFicha(){
     int columna;
+    char fichaActual = (jugador == 1) ? 'X' : 'O';
     
-    if(jugador == 1){
-        printf("Jugador 1, Ingrese la columna (0-6) para colocar su ficha: \n");
-        scanf("%d", &columna);
-        //  VALIDAR LA COLUMNA INGRESADA
-        if(columna < 0 || columna >= tableroColumnas){
-        printf("Columna invalida. Intente otra vez \n");
-        return;
-        }
-        //  COLOCAR LA FICAH EN LA PRIEMARA FILA DISPONIBLE DE LA COLUMNA
-        for(int i=tableroFilas - 1; i>=0; i--){
-        if(tablero[i][columna] == ' '){
-            tablero[i][columna] = 'X';
-            break;
-            }   
-        }
-        jugador=2;
-    }else{
-        printf("Jugador 2, Ingrese la columna (0-6) para colocar su ficha: \n");
+    printf("Jugador %d, ingrese la columna", jugador);
     scanf("%d", &columna);
-    //  VALIDAR LA COLUMNA INGRESADA
+    
     if(columna < 0 || columna >= tableroColumnas){
-        printf("Columna invalida. Intente otra vez \n");
+        printf("Columna invalida");
         return;
     }
-    //  COLOCAR LA FICAH EN LA PRIEMARA FILA DISPONIBLE DE LA COLUMNA
+    int filaDestino = -1;
     for(int i=tableroFilas - 1; i>=0; i--){
         if(tablero[i][columna] == ' '){
-            tablero[i][columna] = 'O';
+            filaDestino = 1;
             break;
         }
     }
-    jugador=1;
+    for(int i=tableroFilas - 1; i>=0; i--){
+        if(filaDestino == 1){
+            if(filaDestino == -1){
+                printf("La columna esta llena");
+                return;
+            }
+            for(int i=0; i>=filaDestino; i++){
+                tablero[i][columna] = fichaActual;
+                
+                mostrarTablero();
+                
+                usleep(1000000);
+                
+                if(i < filaDestino){
+                    tablero[i][columna] = ' ';
+                }
+            }
+            
+        }
+        
+    }
+    if(jugador == 1){
+                jugador = 2;
+            }else {
+                jugador =1;
+            }
     }
     
-}
+    int verificarGanador(char ficha){
+        for(int i=0; i<tableroFilas; i++){
+            for(int j=0; j<tableroColumnas - 3; j++){
+                if (tablero[i][j]==ficha && 
+                tablero[i][j + 1] == ficha &&
+                tablero[i][j + 2] == ficha &&
+                tablero[i][j + 3] == ficha){
+                    return 1;
+                }
+            }
+        }
+        for(int i=0; i<tableroFilas - 3; i++){
+            for(int j=0; j<tableroColumnas; j++){
+                if (tablero[i][j] == ficha &&
+                tablero[i + 1][j] == ficha &&
+                tablero[i + 2][j] == ficha &&
+                tablero[i + 3][j] == ficha){
+                    return 1;
+                }
+            }
+        }
+        for(int i=3; i<tableroFilas; i++){
+            for(int j=0; j<tableroColumnas; j++){
+                if(tablero[i][j] == ficha &&
+                tablero[i - 1][j - 1] == ficha &&
+                tablero[i - 2][j - 2] == ficha &&
+                tablero[i - 3][j - 3] == ficha){
+                    return 1;
+                }
+            }
+        }
+    }
+    
+
 int main()
 {
     inicializarTablero();
+    
+    int turnosTotales = tableroFilas * tableroColumnas;
+    int juegoTerminado = 0;
+    
     mostrarTablero();
-    for(int i=0; i<5; i++){
+    
+    for(int i=0; i<turnosTotales && !juegoTerminado; i++){
         ponerFicha();
-        mostrarTablero();
+        
+        if(verificarGanador('X')){
+            printf("\n Gano el jugador 1");
+            juegoTerminado = 1;
+        }else if(verificarGanador('O')){
+            printf("\n Gano el jugador 1");
+            juegoTerminado = 1;
+        }
     }
-    ponerFicha();
-    mostrarTablero();
-
+    
+    if(!juegoTerminado){
+        printf("\n Empataron ambos jugadores");
+    }
     return 0;
 }
